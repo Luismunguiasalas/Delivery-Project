@@ -145,23 +145,17 @@ class HashTableHub:
   # create_status_of_all_packages_at_time: will take in a time, create a key with time and a nested dictionary that contains distance_traveled,
   # then loop through hub and packaged_en_route_or_delivered and create/store/update package statuses at given time
   # it also updates distance traveled by trucks at that given time.
-  # it can also take in a temp_list and create statuses out of those elements.
   def create_status_of_all_packages_at_time(self, time):
     if time not in self.hub_package_status:
       self.hub_package_status[time] = {"Distance Traveled": self.distance_traveled}
-    # print(len(self.hub))
-    # print(len(self.packages_en_route_or_delivered))
-    # print("")
+
     for package in self.hub:
       if package is not None:
-        
         self.hub_package_status[time][package.id] = copy.deepcopy(package)
-        # self.hub_package_status[time].append(package)
         
     for package in self.packages_en_route_or_delivered:
       if package is not None:
         self.hub_package_status[time][package.id] = copy.deepcopy(package)
-        # self.hub_package_status[time].append(package)
     
     self.hub_package_status[time]["Distance Traveled"] = self.distance_traveled
   

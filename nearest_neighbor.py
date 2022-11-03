@@ -12,12 +12,8 @@ def nearest_neighbor(locat_map, truck, clock, hub):
   waiting = []
   index_of_package = H.find_package_to_remove(truck, 9)
   
-  # print(index_of_package)
   if index_of_package is not None:
-    # print("package found")
     waiting.append(truck.pop(index_of_package))
-  
-  print(waiting[0].id)
   
   # while there is still packages to deliver, choose minimum distance to drive relative to current_truck_location_address
   while len(truck) > 0:
@@ -26,7 +22,7 @@ def nearest_neighbor(locat_map, truck, clock, hub):
     minimum_address = "" # to hold minimum distance choice address
     minimum_index = 0 # to hold index of to quickly locate within location dictionary
     package_id = None # to hold package id, to know which package to remove
-    temp_distance = 0 # to hold temp distance to add to total distance
+    temp_distance = 0 # to hold temp distance travel from A to B.
     
     # get all package distances relative to the current_truck_location 
     for package in truck:
@@ -44,9 +40,7 @@ def nearest_neighbor(locat_map, truck, clock, hub):
         minimum_index = target_address_index
         package_id = package.id
         temp_distance = dist_frm_truck_to_target
-    
-    # index_of_package_to_remove = 0  # to track index of pacakge to remove from truck
-    
+        
     # find index of package to delete
     index_of_package_to_remove = H.find_package_to_remove(truck, package_id)
     
@@ -54,9 +48,7 @@ def nearest_neighbor(locat_map, truck, clock, hub):
     clock.update_clock(temp_distance)
     
     # do not deliver packages until address has been updated at "10:20"AM
-    # print(clock.get_time(), (clock.get_time() >= "10:20 AM") )
     if clock.get_time() >= "10:20 AM" and len(waiting) > 0:
-      # print("package added")
       waiting[0].update_package_address("410 S State St", "Salt Lake City", "UT","84111")
       truck.append(waiting.pop())
     
@@ -74,8 +66,6 @@ def nearest_neighbor(locat_map, truck, clock, hub):
   
   # update clock after returning to Hub
   clock.update_clock(locat_map[current_truck_location_address][0])
-  
-  
   
   # update statuses for each package every minute up  until 1 PM
   H.catchup_clock(temp_clock, C.Clock("01:00","PM"), hub)

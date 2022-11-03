@@ -29,7 +29,6 @@ def main():
     wgu_hub.insert_package(package)
           
   # create status keys for all packages until 1PM
-  
   H.catchup_clock(C.Clock("07:59", "AM"), C.Clock("01:00", "PM"), wgu_hub)
   
   # going to load these packages (id's) first for priority and time constraint reasons  
@@ -41,30 +40,24 @@ def main():
   truck1 = wgu_hub.remove_many_packages(packages_to_load_into_truck1)
   truck2 = wgu_hub.remove_many_packages(packages_to_load_into_truck2)
     
-  # deliveries_made  = N.nearest_neighbor(D.all_locations_dictionary, truck2, truck2_clock, wgu_hub)
-  # deliveries_made += N.nearest_neighbor(D.all_locations_dictionary, truck1, truck1_clock, wgu_hub)
-  deliveries_made = N.nearest_neighbor(D.all_locations_dictionary, truck1, truck1_clock, wgu_hub)
+  deliveries_made  = N.nearest_neighbor(D.all_locations_dictionary, truck2, truck2_clock, wgu_hub)
+  deliveries_made += N.nearest_neighbor(D.all_locations_dictionary, truck1, truck1_clock, wgu_hub)
     
   # if deliveries still need to be made continue to load packaged into trucks
   # choose arbitrary truck that is empty
-  # deliveries_made += H.continue_deliveries(D.all_locations_dictionary, truck2, truck2_clock, wgu_hub)
+  deliveries_made += H.continue_deliveries(D.all_locations_dictionary, truck2, truck2_clock, wgu_hub)
   
   print("....beep....boop....bop.......")
   print(".......deliveries are finished")
   print("")
   print("******************************")
-  # print("Time of last delivery: ", truck2_clock.get_time())
-  # print("Total miles driven:", round(wgu_hub.distance_traveled, 2))
+  print("Time of last delivery: ", truck2_clock.get_time())
+  print("Total miles driven:", round(wgu_hub.distance_traveled, 2))
   print("******************************")
   print("")
   
-  
-  # for key, value in wgu_hub.hub_package_status.items():
-  #   print(key, len(value))
-  
   # user interface to retrieve status of package at any time as well as status of all packages
   print("Hi user, if you'd like to know the status of all packaged at a given time, ensure that you enter 'YES' in the following prompt, or enter 'NO'")
-  # print("Note: Enter time that is less than or equal to 'Time of last delivery': ", truck2_clock.get_time())
   print("Note: Enter time that is less than or equal to '01:00 PM', this is the latest for tracking packages statuses")
   print("Note: Obviously you cannot find status of packages at 7PM if all deliveries were completed by 1PM. Also, deliveries began at 08:00 AM")
   print("Note: The results are long. You may have to scroll down to view")
