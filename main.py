@@ -31,8 +31,8 @@ def main():
   # create status keys for all packages until 1PM
   H.catchup_clock(C.Clock("07:59", "AM"), C.Clock("01:00", "PM"), wgu_hub)
   
-  # going to load these packages (id's) first for priority and time constraint reasons  
-  packages_to_load_into_truck1 = [4,5,6,7,8,9,10,13,17,25,21,27,28,32,35,39]
+  # going to load these packages (id's) first for priority and time constraint reasons
+  packages_to_load_into_truck1 = [5,6,9,10,13,17,25,21,27,28,32,35,39]
   packages_to_load_into_truck2 = [1,3,14,15,16,18,19,20,29,30,31,34,36,37,38,40]
   
   
